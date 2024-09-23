@@ -4,10 +4,12 @@ import digit.config.Configuration;
 import digit.util.QueryUtil;
 import digit.web.models.PlanFacilitySearchCriteria;
 import digit.web.models.PlanSearchCriteria;
+import digit.web.models.ResidingBoundaries;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 
@@ -64,7 +66,12 @@ public class PlanFacilityQueryBuilder {
             preparedStmtList.add(planFacilitySearchCriteria.getPlanConfigurationId());
         }
 
-
+        if(!ObjectUtils.isEmpty(planFacilitySearchCriteria.getResidingBoundaries())){
+            List<String> residingBoundries = planFacilitySearchCriteria.getResidingBoundaries();
+            QueryUtil.addClauseIfRequired(builder, preparedStmtList);
+            builder.append(" residing_boundary IN ( ").append(QueryUtil.createQuery(residingBoundries.size())).append(" )");
+            preparedStmtList.add(residingBoundries);
+        }
 
         return builder.toString();
     }

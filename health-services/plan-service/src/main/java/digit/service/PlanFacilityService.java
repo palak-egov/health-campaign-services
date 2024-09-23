@@ -1,9 +1,8 @@
 package digit.service;
 
+import digit.repository.PlanFacilityRepository;
 import digit.repository.PlanRepository;
-import digit.web.models.Plan;
-import digit.web.models.PlanResponse;
-import digit.web.models.PlanSearchRequest;
+import digit.web.models.*;
 import org.egov.common.utils.ResponseInfoUtil;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +11,10 @@ import java.util.List;
 @Service
 public class PlanFacilityService {
 
-    private PlanRepository planRepository;
+    private PlanFacilityRepository planFacilityRepository;
 
     public PlanFacilityService(PlanRepository planRepository) {
-        this.planRepository = planRepository;
+        this.planFacilityRepository = planFacilityRepository;
     }
 
     /**
@@ -23,14 +22,14 @@ public class PlanFacilityService {
      * @param body
      * @return
      */
-    public PlanResponse searchPlan(PlanSearchRequest body) {
+    public PlanFacilityResponse searchPlanFacility(PlanFacilitySearchRequest body) {
         // Delegate search request to repository
-        List<Plan> planList = planRepository.search(body.getPlanSearchCriteria());
+        List<PlanFacility> planFacilityList = planFacilityRepository.search(body.getPlanFacilitySearchCriteria());
 
         // Build and return response back to controller
-        return PlanResponse.builder()
+        return PlanFacilityResponse.builder()
                 .responseInfo(ResponseInfoUtil.createResponseInfoFromRequestInfo(body.getRequestInfo(), Boolean.TRUE))
-                .plan(planList)
+                .planFacility(planFacilityList)
                 .build();
     }
 }

@@ -29,7 +29,7 @@ public class PlanFacilitySearchCriteria {
     private String planConfigurationId = null;
 
     @JsonProperty("residingBoundaries")
-    private List<ResidingBoundaries> residingBoundaries = null;
+    private List<String> residingBoundaries = null;
 
     @JsonProperty("offset")
     private Integer offset = null;

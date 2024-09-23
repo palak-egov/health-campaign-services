@@ -50,7 +50,6 @@ public class QueryUtil {
 
         return builder.toString();
     }
-
     /**
      * This method adds a set of String values into preparedStatementList
      * @param preparedStmtList

@@ -2,6 +2,8 @@ package digit.web.controllers;
 
 
 import digit.service.PlanFacilityService;
+import digit.web.models.PlanFacilityResponse;
+import digit.web.models.PlanFacilitySearchRequest;
 import digit.web.models.PlanResponse;
 import digit.web.models.PlanSearchRequest;
 import jakarta.validation.Valid;
@@ -19,8 +21,8 @@ public class PlanFacilityController {
     @Autowired
     private PlanFacilityService planFacilityService;
     @RequestMapping(value = "/facility/_search", method = RequestMethod.POST)
-    public ResponseEntity<PlanResponse> searchPost(@Valid @RequestBody PlanSearchRequest body) {
-        PlanResponse planResponse = planFacilityService.searchPlan(body);
-        return ResponseEntity.status(HttpStatus.OK).body(planResponse);
+    public ResponseEntity<PlanFacilityResponse> searchPost(@Valid @RequestBody PlanFacilitySearchRequest body) {
+        PlanFacilityResponse planFacilityResponse = planFacilityService.searchPlanFacility(body);
+        return ResponseEntity.status(HttpStatus.OK).body(planFacilityResponse);
     }
 }

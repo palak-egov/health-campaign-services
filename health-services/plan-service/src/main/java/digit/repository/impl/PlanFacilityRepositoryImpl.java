@@ -82,12 +82,12 @@ public class PlanFacilityRepositoryImpl implements PlanFacilityRepository {
 
     /**
      * Helper method to search for plans based on the provided plan ids.
-     * @param planIds
+     * @param planFacilityIds
      * @return
      */
-    private List<PlanFacility> searchPlanFacilityByIds(List<String> planIds) {
+    private List<PlanFacility> searchPlanFacilityByIds(List<String> planFacilityIds) {
         List<Object> preparedStmtList = new ArrayList<>();
-        String query = planFacilityQueryBuilder.getPlanFacilityQuery(planIds, preparedStmtList);
+        String query = planFacilityQueryBuilder.getPlanFacilityQuery(planFacilityIds, preparedStmtList);
         log.info("Plan query: " + query);
         return jdbcTemplate.query(query, planFacilityRowMapper, preparedStmtList.toArray());
     }
