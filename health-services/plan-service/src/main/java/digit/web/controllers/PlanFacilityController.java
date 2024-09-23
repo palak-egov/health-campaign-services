@@ -1,6 +1,8 @@
 package digit.web.controllers;
 
 import digit.service.PlanFacilityService;
+import digit.web.models.PlanFacilityRequest;
+import digit.web.models.PlanFacilityResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

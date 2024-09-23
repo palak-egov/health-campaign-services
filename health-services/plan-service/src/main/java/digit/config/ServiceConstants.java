@@ -110,4 +110,9 @@ public class ServiceConstants {
     public static final String MDMS_SCHEMA_PROPERTIES_IS_REQUIRED = "isRequired";
     public static final String BOUNDARY_CODE = "boundaryCode";
 
+    public static final String NAME_VALIDATION_DATA = "Data";
+
+    public static final String INVALID_PLAN_FACILITY_ID_CODE = "INVALID_PLAN_FACILITY_ID";
+    public static final String INVALID_PLAN_FACILITY_ID_MESSAGE = "Plan facility id provided is invalid";
+
 }

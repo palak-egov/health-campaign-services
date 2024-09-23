@@ -1,6 +1,8 @@
 package digit.service;
 
 import digit.service.validator.PlanFacilityValidator;
+import digit.web.models.PlanFacilityRequest;
+import digit.web.models.PlanFacilityResponse;
 import org.springframework.stereotype.Service;
 
 @Service
