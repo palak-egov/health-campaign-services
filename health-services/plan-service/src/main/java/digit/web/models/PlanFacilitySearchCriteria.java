@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
+import java.util.Set;
 
 @Validated
 @Data
@@ -16,6 +17,10 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class PlanFacilitySearchCriteria {
+
+    @JsonProperty("ids")
+    private Set<String> ids = null;
+
     @JsonProperty("tenantId")
     @NotNull
     private String tenantId = null;
