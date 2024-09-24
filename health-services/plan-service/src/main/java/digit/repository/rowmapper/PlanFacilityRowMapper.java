@@ -32,7 +32,7 @@ public class PlanFacilityRowMapper implements ResultSetExtractor<List<PlanFacili
     public List<PlanFacility> extractData(ResultSet rs) throws SQLException, DataAccessException {
         Map<String, PlanFacility> planFacilityMap = new LinkedHashMap<>();
         while(rs.next()){
-            String planFacilityId = rs.getString("plan_id");
+            String planFacilityId = rs.getString("plan_facility_id");
 
             PlanFacility planFacilityEntry = planFacilityMap.get(planFacilityId);
             if(ObjectUtils.isEmpty(planFacilityEntry)){
@@ -40,17 +40,17 @@ public class PlanFacilityRowMapper implements ResultSetExtractor<List<PlanFacili
 
                 // Prepare audit details
                 AuditDetails auditDetails = AuditDetails.builder()
-                        .createdBy(rs.getString("created_by"))
-                        .createdTime(rs.getLong("created_time"))
-                        .lastModifiedBy(rs.getString("last_modified_by"))
-                        .lastModifiedTime(rs.getLong("last_modified_time"))
+                        .createdBy(rs.getString("plan_facility_created_by"))
+                        .createdTime(rs.getLong("plan_facility_created_time"))
+                        .lastModifiedBy(rs.getString("plan_facility_last_modified_by"))
+                        .lastModifiedTime(rs.getLong("plan_facility_last_modified_time"))
                         .build();
 
                 // Prepare plan facility object
                 planFacilityEntry.setId(planFacilityId);
-                planFacilityEntry.setTenantId(rs.getString("tenant_id"));
-                planFacilityEntry.setPlanConfigurationId(rs.getString("plan_configuration_id"));
-                planFacilityEntry.setAdditionalDetails(getAdditionalDetail((PGobject) rs.getObject("additional_details")));
+                planFacilityEntry.setTenantId(rs.getString("plan_facility_tenant_id"));
+                planFacilityEntry.setPlanConfigurationId(rs.getString("plan_facility_plan_configuration_id"));
+                planFacilityEntry.setAdditionalDetails(getAdditionalDetail((PGobject) rs.getObject("plan_facility_additional_details")));
                 planFacilityEntry.setAuditDetails(auditDetails);
             }
 

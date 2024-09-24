@@ -48,16 +48,16 @@ public class PlanFacilityRepositoryImpl implements PlanFacilityRepository {
      */
     @Override
     public List<PlanFacility> search(PlanFacilitySearchCriteria planFacilitySearchCriteria) {
-        // Fetch plan ids from database
+        // Fetch plan facility ids from database
         List<String> planFacilityIds = queryDatabaseForPlanFacilityIds(planFacilitySearchCriteria);
 
-        // Return empty list back as response if no plan ids are found
+        // Return empty list back as response if no plan facility ids are found
         if(CollectionUtils.isEmpty(planFacilityIds)) {
-            log.info("No planFacility ids found for provided plan search criteria.");
+            log.info("No planFacility ids found for provided plan facility search criteria.");
             return new ArrayList<>();
         }
 
-        // Fetch plans from database based on the acquired ids
+        // Fetch plans facilities from database based on the acquired ids
         List<PlanFacility> planFacilities  = searchPlanFacilityByIds(planFacilityIds);
 
         return planFacilities;
@@ -69,7 +69,7 @@ public class PlanFacilityRepositoryImpl implements PlanFacilityRepository {
     }
 
     /**
-     * Helper method to query database for plan ids based on the provided search criteria.
+     * Helper method to query database for plan facility ids based on the provided search criteria.
      * @param planFacilitySearchCriteria
      * @return
      */
@@ -81,14 +81,14 @@ public class PlanFacilityRepositoryImpl implements PlanFacilityRepository {
     }
 
     /**
-     * Helper method to search for plans based on the provided plan ids.
+     * Helper method to search for plans facility based on the provided plan ids.
      * @param planFacilityIds
      * @return
      */
     private List<PlanFacility> searchPlanFacilityByIds(List<String> planFacilityIds) {
         List<Object> preparedStmtList = new ArrayList<>();
         String query = planFacilityQueryBuilder.getPlanFacilityQuery(planFacilityIds, preparedStmtList);
-        log.info("Plan query: " + query);
+        log.info("Plan facility query: " + query);
         return jdbcTemplate.query(query, planFacilityRowMapper, preparedStmtList.toArray());
     }
 }

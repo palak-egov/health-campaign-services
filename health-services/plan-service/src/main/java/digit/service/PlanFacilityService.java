@@ -13,7 +13,7 @@ public class PlanFacilityService {
 
     private PlanFacilityRepository planFacilityRepository;
 
-    public PlanFacilityService(PlanRepository planRepository) {
+    public PlanFacilityService(PlanFacilityRepository planFacilityRepository) {
         this.planFacilityRepository = planFacilityRepository;
     }
 

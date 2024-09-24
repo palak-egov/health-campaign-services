@@ -3,13 +3,10 @@ package digit.repository.querybuilder;
 import digit.config.Configuration;
 import digit.util.QueryUtil;
 import digit.web.models.PlanFacilitySearchCriteria;
-import digit.web.models.PlanSearchCriteria;
-import digit.web.models.ResidingBoundaries;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
-import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 
@@ -24,8 +21,7 @@ public class PlanFacilityQueryBuilder {
 
     private static final String PLAN_FACILITY_SEARCH_BASE_QUERY = "SELECT id FROM plan_facility_linkage ";
 
-    private static final String PLAN_FACILITY_QUERY = "SELECT plan_facility_linkage.id as plan_facility_id, plan_facility_linkage.tenant_id as plan_facility_tenant_id, plan_facility_linkage.plan_configuration_id as plan_facility_plan_configuration_id, plan_facility_linkage.additional_details as plan_facility_additional_details, plan_facility_linkage.created_by as plan_facility_created_by, plan_facility_linkage.created_time as plan_facility_created_time, plan_facility_linkage.last_modified_by as plan_facility_last_modified_by, plan_facility_linkage.last_modified_time as plan_facility_last_modified_time,\n" +
-            "\t   FROM plan_facility_linkage";
+    private static final String PLAN_FACILITY_QUERY = "SELECT plan_facility_linkage.id as plan_facility_id, plan_facility_linkage.tenant_id as plan_facility_tenant_id, plan_facility_linkage.plan_configuration_id as plan_facility_plan_configuration_id, plan_facility_linkage.additional_details as plan_facility_additional_details, plan_facility_linkage.created_by as plan_facility_created_by, plan_facility_linkage.created_time as plan_facility_created_time, plan_facility_linkage.last_modified_by as plan_facility_last_modified_by, plan_facility_linkage.last_modified_time as plan_facility_last_modified_time FROM plan_facility_linkage";
 
     private static final String PLAN_FACILITY_SEARCH_QUERY_ORDER_BY_CLAUSE = " order by plan_facility_linkage.last_modified_time desc ";
 
@@ -38,7 +34,7 @@ public class PlanFacilityQueryBuilder {
 
         if (!CollectionUtils.isEmpty(ids)) {
             QueryUtil.addClauseIfRequired(builder, preparedStmtList);
-            builder.append(" plan.id IN ( ").append(QueryUtil.createQuery(ids.size())).append(" )");
+            builder.append(" plan_facility_linkage.id IN ( ").append(QueryUtil.createQuery(ids.size())).append(" )");
             QueryUtil.addToPreparedStatement(preparedStmtList, new LinkedHashSet<>(ids));
         }
 
