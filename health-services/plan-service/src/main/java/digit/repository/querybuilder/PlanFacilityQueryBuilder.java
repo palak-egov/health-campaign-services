@@ -21,7 +21,7 @@ public class PlanFacilityQueryBuilder {
 
     private static final String PLAN_FACILITY_SEARCH_BASE_QUERY = "SELECT id FROM plan_facility_linkage ";
 
-    private static final String PLAN_FACILITY_QUERY = "SELECT plan_facility_linkage.id as plan_facility_id, plan_facility_linkage.tenant_id as plan_facility_tenant_id, plan_facility_linkage.plan_configuration_id as plan_facility_plan_configuration_id, plan_facility_linkage.additional_details as plan_facility_additional_details, plan_facility_linkage.created_by as plan_facility_created_by, plan_facility_linkage.created_time as plan_facility_created_time, plan_facility_linkage.last_modified_by as plan_facility_last_modified_by, plan_facility_linkage.last_modified_time as plan_facility_last_modified_time FROM plan_facility_linkage";
+    private static final String PLAN_FACILITY_QUERY = "SELECT plan_facility_linkage.id as plan_facility_id, plan_facility_linkage.tenant_id as plan_facility_tenant_id, plan_facility_linkage.plan_configuration_id as plan_facility_plan_configuration_id, plan_facility_linkage.facility_id as plan_facility_facility_id, plan_facility_linkage.residing_boundary as plan_facility_residing_boundary, plan_facility_linkage.service_boundaries as plan_facility_service_boundaries, plan_facility_linkage.additional_details as plan_facility_additional_details, plan_facility_linkage.created_by as plan_facility_created_by, plan_facility_linkage.created_time as plan_facility_created_time, plan_facility_linkage.last_modified_by as plan_facility_last_modified_by, plan_facility_linkage.last_modified_time as plan_facility_last_modified_time, plan_facility_linkage.active as plan_facility_active FROM plan_facility_linkage";
 
     private static final String PLAN_FACILITY_SEARCH_QUERY_ORDER_BY_CLAUSE = " order by plan_facility_linkage.last_modified_time desc ";
 
@@ -63,10 +63,10 @@ public class PlanFacilityQueryBuilder {
         }
 
         if(!ObjectUtils.isEmpty(planFacilitySearchCriteria.getResidingBoundaries())){
-            List<String> residingBoundries = planFacilitySearchCriteria.getResidingBoundaries();
+            List<String> residingBoundaries = planFacilitySearchCriteria.getResidingBoundaries();
             QueryUtil.addClauseIfRequired(builder, preparedStmtList);
-            builder.append(" residing_boundary IN ( ").append(QueryUtil.createQuery(residingBoundries.size())).append(" )");
-            preparedStmtList.add(residingBoundries);
+            builder.append(" residing_boundary IN ( ").append(QueryUtil.createQuery(residingBoundaries.size())).append(" )");
+            QueryUtil.addToPreparedStatement(preparedStmtList, new LinkedHashSet<>(residingBoundaries));
         }
 
         return builder.toString();

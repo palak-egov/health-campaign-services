@@ -14,10 +14,7 @@ import org.springframework.util.ObjectUtils;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.ArrayList;
+import java.util.*;
 
 @Component
 public class PlanFacilityRowMapper implements ResultSetExtractor<List<PlanFacility>> {
@@ -50,8 +47,13 @@ public class PlanFacilityRowMapper implements ResultSetExtractor<List<PlanFacili
                 planFacilityEntry.setId(planFacilityId);
                 planFacilityEntry.setTenantId(rs.getString("plan_facility_tenant_id"));
                 planFacilityEntry.setPlanConfigurationId(rs.getString("plan_facility_plan_configuration_id"));
+                planFacilityEntry.setFacilityId(rs.getString("plan_facility_facility_id"));
+                planFacilityEntry.setResidingBoundary(rs.getString("plan_facility_residing_boundary"));
+                String serviceBoundaries = rs.getString("plan_facility_service_boundaries");
+                planFacilityEntry.setServiceBoundaries(ObjectUtils.isEmpty(serviceBoundaries) ? new ArrayList<>() : Arrays.asList(rs.getString("plan_facility_service_boundaries").split(",")));
                 planFacilityEntry.setAdditionalDetails(getAdditionalDetail((PGobject) rs.getObject("plan_facility_additional_details")));
                 planFacilityEntry.setAuditDetails(auditDetails);
+                planFacilityEntry.setActive(rs.getBoolean("plan_facility_active"));
             }
 
             planFacilityMap.put(planFacilityId, planFacilityEntry);
@@ -63,7 +65,7 @@ public class PlanFacilityRowMapper implements ResultSetExtractor<List<PlanFacili
         JsonNode additionalDetail = null;
 
         try {
-            if(ObjectUtils.isEmpty(pGobject)){
+            if(!ObjectUtils.isEmpty(pGobject)){
                 additionalDetail = objectMapper.readTree(pGobject.getValue());
             }
         }
